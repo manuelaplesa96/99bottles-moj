@@ -20,31 +20,44 @@ class Bottles
         when 0
             "No more bottles of beer on the wall, " +
             "no more bottles of beer.\n" +
-            "Go to the stroe and buy some more, " +
+            "Go to the store and buy some more, " +
             "99 bottles of beer on the wall.\n"
         when 1
-            "1 more bottle of beer on the wall, " +
-            "1 more bottle of beer.\n" +
+            "#{num} #{container(num)} of beer on the wall, " +
+            "1 #{container(num)} of beer.\n" +
             "Take it down and pass it around, " +
             "no more bottles of beer on the wall.\n"
-        when 2
-            "2 more bottles of beer on the wall, " +
-            "2 more bottles of beer.\n" +
-            "Take one down and pass it around, " +
-            "1 bottle of beer on the wall.\n"
         else
-            "#{num} more bottles of beer on the wall, " +
-            "#{num} more bottles of beer.\n" +
-            "Take one down and pass it around, " +
-            "#{num - 1} bottle of beer on the wall.\n"
+            "#{num} #{container(num)} of beer on the wall, " +
+            "#{num} #{container(num)} of beer.\n" +
+            "Take #{pronoun} down and pass it around, " +
+            "#{num - 1} #{container(num-1)} of beer on the wall.\n"
         end
     end
 
-    def verses(start,end)
-        start.downto(end).collect {|i| verse(i)}.join("\n")
+    def verses(start,ending)
+        start.downto(ending).collect {|i| verse(i)}.join("\n")
     end
 
     def song
         verses(99,0)
     end
+
+    def container(num)
+        if num == 1
+            "bottle"
+        else
+            "bottles"
+        end
+    end
+
+    # def pronoun(num = :FIXME)
+    #     if num == 1
+    #         "it"
+    #     else
+    #         "one"
+    #     end
+            
+    # end
+
 end
