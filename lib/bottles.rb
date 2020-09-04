@@ -1,25 +1,10 @@
 class Bottles
-    # def verse(num)
-    #     "#{num == 0 ? 'No more' : num} bottle#{'s' if num != 1}" +
-    #     " of beer on the wall, " +
-    #     "#{num == 0 ? 'no more' : num} bottle#{'s' if num != 1} of beer.\n" +
-    #     "#{num > 0 ? "Take #{num > 1 ? 'one' : 'it'} down and pass it around" : "Go to the store and buy some more"}, " + 
-    #     "#{num-1 < 0 ? 99 : num-1 == 0 ? 'no more' : num-1} bottle#{'s' if num-1 != 1} of beer on the wall.\n"
-    # end
-
-    # def verses(n,m)
-    #     n.downto(m).map { |i| verse(i) }.join("\n")
-    # end
-
-    # def song
-    #     verses(99,0)
-    # end
-
-    def verse(num)
-        "#{quantity(num).capitalize} #{container(num)} of beer on the wall, " +
-        "#{quantity(num)} #{container(num)} of beer.\n" +
-        "#{action(num)}, " +
-        "#{quantity(successor(num))} #{container(successor(num))} of beer on the wall.\n"
+    
+    def verse(number)
+        "#{quantity(number).capitalize} #{container(number)} of beer on the wall, " +
+        "#{quantity(number)} #{container(number)} of beer.\n" +
+        "#{action(number)}, " +
+        "#{quantity(successor(number))} #{container(successor(number))} of beer on the wall.\n"
     end
 
     def verses(start,ending)
@@ -30,44 +15,73 @@ class Bottles
         verses(99,0)
     end
 
-    def container(num)
-        if num == 1
+    def container(number)
+        BottleNumber.new(number).container(number)
+    end
+
+    def pronoun(number) 
+        BottleNumber.new(number).pronoun(number)
+    end
+
+    def quantity(number)
+        BottleNumber.new(number).quantity(number)
+    end
+
+    def action(number)
+        BottleNumber.new(number).action(number)
+    end
+
+    def successor(number)
+        BottleNumber.new(number).successor(number)
+    end
+
+end
+
+
+class BottleNumber
+    attr_reader :number
+
+    def initialize(number)
+        @number = number
+    end
+
+    def container(number)
+        if number == 1
             "bottle"
         else
             "bottles"
         end
     end
 
-    def pronoun(num)
-        if num == 1
+    def pronoun(number)
+        if number == 1
             "it"
         else
             "one"
         end   
     end
 
-    def quantity(num)
-        if num == 0
+    def quantity(number)
+        if number == 0
             "no more"
         else
-            num.to_s
+            number.to_s
         end
     end
 
-    def action(num)
-        if num == 0
+    def action(number)
+        if number == 0
             "Go to the store and buy some more"
         else
-            "Take #{pronoun(num)} down and pass it around"
+            "Take #{pronoun(number)} down and pass it around"
         end
     end
 
-    def successor(num)
-        if num == 0
+    def successor(number)
+        if number == 0
             99
         else
-            num - 1
+            number - 1
         end
     end
-
 end
