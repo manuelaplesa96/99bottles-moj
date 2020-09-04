@@ -16,23 +16,10 @@ class Bottles
     # end
 
     def verse(num)
-        case num
-        when 0
-            "No more bottles of beer on the wall, " +
-            "no more bottles of beer.\n" +
-            "Go to the store and buy some more, " +
-            "99 bottles of beer on the wall.\n"
-        when 1
-            "#{num} #{container(num)} of beer on the wall, " +
-            "1 #{container(num)} of beer.\n" +
-            "Take it down and pass it around, " +
-            "no more bottles of beer on the wall.\n"
-        else
-            "#{num} #{container(num)} of beer on the wall, " +
-            "#{num} #{container(num)} of beer.\n" +
-            "Take #{pronoun} down and pass it around, " +
-            "#{num - 1} #{container(num-1)} of beer on the wall.\n"
-        end
+        "#{quantity(num).capitalize} #{container(num)} of beer on the wall, " +
+        "#{quantity(num)} #{container(num)} of beer.\n" +
+        "#{action(num)}, " +
+        "#{quantity(successor(num))} #{container(successor(num))} of beer on the wall.\n"
     end
 
     def verses(start,ending)
@@ -51,13 +38,36 @@ class Bottles
         end
     end
 
-    # def pronoun(num = :FIXME)
-    #     if num == 1
-    #         "it"
-    #     else
-    #         "one"
-    #     end
-            
-    # end
+    def pronoun(num)
+        if num == 1
+            "it"
+        else
+            "one"
+        end   
+    end
+
+    def quantity(num)
+        if num == 0
+            "no more"
+        else
+            num.to_s
+        end
+    end
+
+    def action(num)
+        if num == 0
+            "Go to the store and buy some more"
+        else
+            "Take #{pronoun(num)} down and pass it around"
+        end
+    end
+
+    def successor(num)
+        if num == 0
+            99
+        else
+            num - 1
+        end
+    end
 
 end
