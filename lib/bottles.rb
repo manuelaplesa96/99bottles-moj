@@ -1,10 +1,12 @@
 class Bottles
     
     def verse(number)
-        "#{quantity(number).capitalize} #{container(number)} of beer on the wall, " +
-        "#{quantity(number)} #{container(number)} of beer.\n" +
-        "#{action(number)}, " +
-        "#{quantity(successor(number))} #{container(successor(number))} of beer on the wall.\n"
+        bottle_number = BottleNumber.new(number)
+        next_bottle_number = BottleNumber.new(bottle_number.successor)
+        "#{bottle_number.quantity.capitalize} #{bottle_number.container} of beer on the wall, " +
+        "#{bottle_number.quantity} #{bottle_number.container} of beer.\n" +
+        "#{bottle_number.action}, " +
+        "#{next_bottle_number.quantity} #{next_bottle_number.container} of beer on the wall.\n"
     end
 
     def verses(start,ending)
@@ -13,26 +15,6 @@ class Bottles
 
     def song
         verses(99,0)
-    end
-
-    def container(number)
-        BottleNumber.new(number).container(number)
-    end
-
-    def pronoun(number) 
-        BottleNumber.new(number).pronoun(number)
-    end
-
-    def quantity(number)
-        BottleNumber.new(number).quantity(number)
-    end
-
-    def action(number)
-        BottleNumber.new(number).action(number)
-    end
-
-    def successor(number)
-        BottleNumber.new(number).successor(number)
     end
 
 end
@@ -45,7 +27,7 @@ class BottleNumber
         @number = number
     end
 
-    def container(number)
+    def container
         if number == 1
             "bottle"
         else
@@ -53,7 +35,7 @@ class BottleNumber
         end
     end
 
-    def pronoun(number)
+    def pronoun
         if number == 1
             "it"
         else
@@ -61,7 +43,7 @@ class BottleNumber
         end   
     end
 
-    def quantity(number)
+    def quantity
         if number == 0
             "no more"
         else
@@ -69,15 +51,15 @@ class BottleNumber
         end
     end
 
-    def action(number)
+    def action
         if number == 0
             "Go to the store and buy some more"
         else
-            "Take #{pronoun(number)} down and pass it around"
+            "Take #{pronoun} down and pass it around"
         end
     end
 
-    def successor(number)
+    def successor
         if number == 0
             99
         else
